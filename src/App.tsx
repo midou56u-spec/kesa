@@ -15,6 +15,14 @@ import { Badge } from '@/components/ui/badge';
 
 import { Expense, Category } from './types';
 
+const generateId = () => {
+  try {
+    return crypto.randomUUID();
+  } catch (e) {
+    return Math.random().toString(36).substring(2, 15);
+  }
+};
+
 const DEFAULT_CATEGORIES: Category[] = [
   { id: '1', name: 'أكل وشرب' },
   { id: '2', name: 'مواصلات' },
@@ -66,7 +74,7 @@ export default function App() {
     }
 
     const newExpense: Expense = {
-      id: crypto.randomUUID(),
+      id: generateId(),
       amount: parseFloat(amount),
       description: description || 'بدون وصف',
       category,
@@ -92,7 +100,7 @@ export default function App() {
       return;
     }
     const newCat: Category = {
-      id: crypto.randomUUID(),
+      id: generateId(),
       name: newCategoryName,
     };
     setCategories([...categories, newCat]);
